@@ -1,44 +1,42 @@
-# 代码质量检测
+# Code Quality Check
 
-对目录或代码片段执行"工具检测 + AI 审查"两级分析，产出 0-100 评分的 Markdown 质量报告。
+A two-level code analysis skill (linting tools + AI review) that produces Markdown quality reports with a 0-100 score.
 
-## 支持语言
+## Supported Languages
 
-Python、JavaScript/TypeScript、Java、Go、Rust、C/C++、Shell 等，按文件类型自动识别。
+Python, JavaScript/TypeScript, Java, Go, Rust, C/C++, Shell, and more — automatically detected by file type.
 
-## 工作流
+## Workflow
 
-1. **扫描项目** — `scripts/scan.py` 自动识别语言、统计文件/行数、检测并运行可用的 lint 工具
-2. **补齐工具**（可选）— 安装缺失的主流工具后重跑
-3. **AI 深度审查** — 工具覆盖不到的问题由 AI 阅读代码补充（安全、正确性、可维护性、风格、工程化）
-4. **评分与报告** — 按五维度加权计算总分，输出 A-F 评级和分级问题清单
+1. **Scan** — `scripts/scan.py` identifies languages, counts files/lines, detects and runs available lint tools
+2. **Install missing tools** (optional) — install recommended tools and re-run
+3. **AI deep review** — AI reads code to catch what tools miss (security, correctness, maintainability, style, engineering)
+4. **Score & report** — weighted 5-dimension scoring with A-F rating and prioritized issue list
 
-## 使用方式
+## Usage
 
-作为 [Command Code](https://commandcode.ai) Skill 使用，触发词：
+Designed as a [Command Code](https://commandcode.ai) Skill. Trigger phrases:
 
-- "代码质量检测"
-- "代码检查"
-- "代码审查"
+- "code quality check"
+- "lint this project"
 - "code review"
-- "帮我看看这段代码有没有问题"
-- "lint 一下这个项目"
-- "代码评分"
+- "check my code for issues"
+- "code scoring"
 
-## 项目结构
+## Project Structure
 
 ```
 .
-├── SKILL.md                    # Skill 定义与工作流说明
+├── SKILL.md                    # Skill definition and workflow
 ├── scripts/
-│   └── scan.py                 # 扫描脚本（语言识别、工具探测与执行）
+│   └── scan.py                 # Scanner (language detection, tool execution)
 └── references/
-    ├── rubric.md               # 五维度评分标准与评级映射
-    └── report-template.md      # 报告输出模板
+    ├── rubric.md               # Scoring rubric and grade mapping
+    └── report-template.md      # Report output template
 ```
 
-## 注意事项
+## Notes
 
-- 只做检测与报告，不主动修改被测代码
-- 每条问题带 `文件:行号` 定位
-- 发现硬编码密钥时只写位置和类型，不复述密钥内容
+- Read-only by default — does not modify code unless explicitly asked
+- Every issue includes `file:line` location
+- Hardcoded secrets are reported by location/type only, never by value
